@@ -6,14 +6,15 @@ from __future__ import (
 import os
 import subprocess
 import sys
-from io import StringIO
 
 from flake8.main import main as flake8_main
 
-try:
-    from configparser import SafeConfigParser  # Py 3
-except ImportError:
+if sys.version_info[0] == 2:
+    from cStringIO import StringIO
     from ConfigParser import SafeConfigParser  # Py 2
+else:
+    from configparser import SafeConfigParser  # Py 3
+    from io import StringIO
 
 try:
     from libmodernize.main import main as libmodernize_main
