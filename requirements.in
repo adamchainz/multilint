@@ -1,0 +1,6 @@
+docutils
+flake8
+isort
+modernize
+pytest
+Pygments
