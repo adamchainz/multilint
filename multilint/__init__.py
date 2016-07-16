@@ -7,14 +7,22 @@ import os
 import subprocess
 import sys
 
-from flake8.main import main as flake8_main
-
 if sys.version_info[0] == 2:
     from cStringIO import StringIO
     from ConfigParser import SafeConfigParser  # Py 2
 else:
     from configparser import SafeConfigParser  # Py 3
     from io import StringIO
+
+try:
+    from flake8.main import main as flake8_main
+except ImportError:
+    flake8_main = None
+
+try:
+    from isort.main import main as isort_main
+except ImportError:
+    isort_main = None
 
 try:
     from libmodernize.main import main as libmodernize_main
@@ -96,6 +104,9 @@ def sanitize(config_items):
 
 
 def run_flake8(paths):
+    if flake8_main is None:
+        return 0
+
     print('Running flake8 code linting')
     try:
         original_argv = sys.argv
@@ -131,11 +142,19 @@ def run_modernize(paths):
 
 
 def run_isort(paths):
+    if isort_main is None:
+        return 0
+
     print('Running isort check')
-    return subprocess.call(
-        ['isort', '--recursive', '--check-only', '--diff'] +
-        paths
-    )
+    original_argv = sys.argv
+    sys.argv = ['isort', '--recursive', '--check-only', '--diff'] + paths
+    try:
+        isort_main()
+        return 0
+    except SystemExit as e:
+        return e.code
+    finally:
+        sys.argv = original_argv
 
 
 def run_setup_py_check():
