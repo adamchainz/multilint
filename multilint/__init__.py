@@ -15,9 +15,12 @@ else:
     from io import StringIO
 
 try:
-    from flake8.main import main as flake8_main
+    from flake8.main.cli import main as flake8_main  # flake8 3+
 except ImportError:
-    flake8_main = None
+    try:
+        from flake8.main import main as flake8_main  # flake8 <3
+    except ImportError:
+        flake8_main = None
 
 try:
     from isort.main import main as isort_main
@@ -108,18 +111,18 @@ def run_flake8(paths):
         return 0
 
     print('Running flake8 code linting')
+    exit_code = 0   # flake8 < 3 path - 3+ always raises SystemExit
     try:
         original_argv = sys.argv
         sys.argv = ['flake8'] + paths
-        did_fail = False
         flake8_main()
-    except SystemExit:
-        did_fail = True
+    except SystemExit as e:
+        exit_code = e.code
     finally:
         sys.argv = original_argv
 
-    print('flake8 failed' if did_fail else 'flake8 passed')
-    return did_fail
+    print('flake8 failed' if exit_code else 'flake8 passed')
+    return exit_code
 
 
 def run_modernize(paths):

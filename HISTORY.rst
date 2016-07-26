@@ -6,6 +6,7 @@ Pending
 -------
 
 * New notes here
+* Work with ``flake8`` 3.0+ which changed the way its ``main`` function worked.
 
 1.0.1 (2016-07-16)
 ------------------
