@@ -25,7 +25,7 @@ Run with:
 
     multilint
 
-How it works
+How It Works
 ------------
 
 I like to keep my projects tidy with a standard set of linters. Running them
@@ -33,13 +33,14 @@ all turned out to be easier with a wrapper script, which I ended up
 copy-pasting between them all. This project stops me needing to copy/paste,
 centralizing running all these neat tools.
 
-In order, it will is these linters are installed, and if so, run them:
+In order, it will check if these linters are installed, and if so, run them:
 
-* Run ``flake8``, for code quality
-* Run ``isort`` in 'diff' mode, for import sorting
-* Run ``modernize`` in 'diff' mode, for python 2/3 compatibility
-* Run ``python setup.py check``, to ensure that your ``setup.py`` is well
-  configured. This will require ``docutils``, and maybe ``Pygments`` if your
+* ``flake8``, to check code quality
+* ``isort``, in 'diff' mode to show where imports aren't sorted
+* ``modernize``, in 'diff' mode to show where python 2/3 compatibility with
+   ``six`` is missing
+* ``python setup.py check``, to check your ``setup.py`` is well
+  configured. This will require ``docutils``, and also ``Pygments`` if your
   ``long_description`` uses any code highlighting.
 
 If any of them fail, ``multilint`` stops and dies with a non-zero exit code.
@@ -55,11 +56,11 @@ You need to configure the paths that will be linted (by default, only
             tests
             setup.py
 
-Usage with ``tox``
+Usage With ``tox``
 ------------------
 
 I normally run my tests with ``tox``. An example ``tox.ini`` to use
-``multilint`` to do all your linting would be:
+``multilint`` to do your linting on both Python 2.7 and 3.5 would look like:
 
 .. code-block:: ini
 
@@ -78,5 +79,5 @@ I normally run my tests with ``tox``. An example ``tox.ini`` to use
     [testenv:py35-codestyle]
     commands = multilint
 
-Just put ``multilint``, ``flake8``, etc. in your ``requirements.txt`` and
-they'll automatically run.
+THen just put ``multilint``, plus the linters you want it to run (e.g.
+``flake8``) in your ``requirements.txt``.
