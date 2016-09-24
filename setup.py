@@ -43,7 +43,7 @@ setup(
     ],
     keywords='lint, flake8, pep8, pycodestyle, codestyle, mccabe, setup.py',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: ISC License (ISCL)',
         'Natural Language :: English',
