@@ -92,8 +92,8 @@ def _update_settings_from_file(section, settings):
         with open(config_file, 'rU') as fp:
             config = SafeConfigParser()
             config.readfp(fp)
-        if config.has_section('multilint'):
-            settings.update(sanitize(config.items('multilint')))
+        if config.has_section('tool:multilint'):
+            settings.update(sanitize(config.items('tool:multilint')))
 
 
 def sanitize(config_items):

@@ -51,7 +51,7 @@ You need to configure the paths that will be linted (by default, only
 
 .. code-block:: ini
 
-    [multilint]
+    [tool:multilint]
     paths = my_package
             tests
             setup.py

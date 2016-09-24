@@ -6,6 +6,9 @@ Pending
 -------
 
 * New notes here
+* Use the config header ``tool:multilint`` in ``setup.cfg``, rather than
+  ``multilint``, to avoid clashing with any potential ``setup.py`` commands.
+  Your ``setup.cfg`` will need updating.
 
 1.0.2 (2016-07-26)
 ------------------
