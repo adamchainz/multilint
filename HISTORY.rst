@@ -6,6 +6,10 @@ Pending
 -------
 
 * New notes here
+
+2.0.1 (2016-10-20)
+------------------
+
 * Remove default for `paths` in ``setup.cfg``.
 * Check that paths exist before running the linters.
 
