@@ -40,6 +40,10 @@ __version__ = '2.0.0'
 def main():
     settings = load_settings()
 
+    ret = check_settings(settings)
+    if ret:
+        return ret
+
     ret = run_flake8(settings['paths'])
     if ret:
         return ret
@@ -63,7 +67,7 @@ def main():
 
 MAX_CONFIG_SEARCH_DEPTH = 25
 default_settings = {
-    'paths': ['setup.py']
+    'paths': []
 }
 
 
@@ -104,6 +108,26 @@ def sanitize(config_items):
                 value = [v.strip() for v in value.split('\n') if v.strip()]
             output[key] = value
     return output
+
+
+def check_settings(settings):
+    if not settings['paths']:
+        print(
+            'No paths defined in [tool:multilint] section in setup.cfg',
+            file=sys.stderr,
+        )
+        return 1
+
+    all_exist = True
+    for path in settings['paths']:
+        if not os.path.exists(path):
+            all_exist = False
+            print('Path {} does not exist'.format(path), file=sys.stderr)
+
+    if not all_exist:
+        return 1
+
+    return 0
 
 
 def run_flake8(paths):
