@@ -58,7 +58,7 @@ def main():
 
     # Broken on 2.7.9 due to http://bugs.python.org/issue23063
     if sys.version_info[:3] != (2, 7, 9):
-        ret = run_setup_py_check()
+        ret = run_setup_py_check(settings['paths'])
         if ret:
             return ret
 
@@ -184,7 +184,9 @@ def run_isort(paths):
         sys.argv = original_argv
 
 
-def run_setup_py_check():
+def run_setup_py_check(paths):
+    if 'setup.py' not in paths:
+        return 0
     print('Running setup.py check')
     return subprocess.call([
         'python', 'setup.py', 'check',

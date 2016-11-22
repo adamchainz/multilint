@@ -6,6 +6,7 @@ Pending
 -------
 
 * New notes here
+* Don't invoke ``python setup.py check`` if there is no ``setup.py``.
 
 2.0.1 (2016-10-20)
 ------------------
