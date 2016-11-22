@@ -38,7 +38,7 @@ In order, it will check if these linters are installed, and if so, run them:
 * ``flake8``, to check code quality
 * ``isort``, in 'diff' mode to show where imports aren't sorted
 * ``modernize``, in 'diff' mode to show where python 2/3 compatibility with
-   ``six`` is missing
+  ``six`` is missing
 * ``python setup.py check``, to check your ``setup.py`` is well
   configured. This will require ``docutils``, and also ``Pygments`` if your
   ``long_description`` uses any code highlighting.
@@ -71,7 +71,7 @@ I normally run my tests with ``tox``. An example ``tox.ini`` to use
 
     [testenv]
     deps = -rrequirements.txt
-    commands = py.test
+    commands = pytest
 
     [testenv:py27-codestyle]
     commands = multilint
