@@ -79,5 +79,5 @@ I normally run my tests with ``tox``. An example ``tox.ini`` to use
     [testenv:py35-codestyle]
     commands = multilint
 
-THen just put ``multilint``, plus the linters you want it to run (e.g.
+Then just put ``multilint``, plus the linters you want it to run (e.g.
 ``flake8``) in your ``requirements.txt``.
