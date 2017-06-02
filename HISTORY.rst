@@ -6,6 +6,11 @@ Pending
 -------
 
 * New notes here
+
+2.1.0 (2017-06-02)
+------------------
+
+* Use ``entry_points`` in ``setup.py`` instead of ``scripts``
 * Support ``python -m multilint``
 
 2.0.2 (2016-12-06)
