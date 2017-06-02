@@ -40,9 +40,11 @@ setup(
     install_requires=[],
     license="ISC license",
     zip_safe=False,
-    scripts=[
-        'bin/multilint',
-    ],
+    entry_points={
+        'console_scripts': [
+            'multilint = multilint:main'
+        ],
+    },
     keywords='lint, flake8, pep8, pycodestyle, codestyle, mccabe, setup.py',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
