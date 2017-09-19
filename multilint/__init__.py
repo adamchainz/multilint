@@ -35,7 +35,7 @@ except ImportError:
 
 __author__ = 'Adam Johnson'
 __email__ = 'me@adamj.eu'
-__version__ = '2.1.0'
+__version__ = '2.2.0'
 
 
 def main():
