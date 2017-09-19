@@ -6,6 +6,8 @@ Pending
 -------
 
 * New notes here
+* Add ``--skip`` argument which can be used to skip particular linters even
+  though they're installed.
 
 2.1.0 (2017-06-02)
 ------------------

@@ -3,6 +3,7 @@ from __future__ import (
     absolute_import, division, print_function, unicode_literals
 )
 
+import argparse
 import os
 import subprocess
 import sys
@@ -38,33 +39,52 @@ __version__ = '2.1.0'
 
 
 def main():
-    sys.exit(run())
+    sys.exit(run(sys.argv[1:]))
 
 
-def run():
+parser = argparse.ArgumentParser(
+    description="Run multiple python linters easily"
+)
+parser.add_argument(
+    '--skip',
+    dest='skip',
+    type=str,
+    action='append',
+    help='Name(s) of linters that are installed but should be skipped.',
+    choices=['flake8', 'modernize', 'isort', 'setup.py'],
+)
+
+
+def run(raw_args):
     settings = load_settings()
+    args = parser.parse_args(raw_args)
+    skip = args.skip or ()
 
     ret = check_settings(settings)
     if ret:
         return ret
 
-    ret = run_flake8(settings['paths'])
-    if ret:
-        return ret
+    if 'flake8' not in skip:
+        ret = run_flake8(settings['paths'])
+        if ret:
+            return ret
 
-    ret = run_modernize(settings['paths'])
-    if ret:
-        return ret
+    if 'modernize' not in skip:
+        ret = run_modernize(settings['paths'])
+        if ret:
+            return ret
 
-    ret = run_isort(settings['paths'])
-    if ret:
-        return ret
+    if 'isort' not in skip:
+        ret = run_isort(settings['paths'])
+        if ret:
+            return ret
 
     # Broken on 2.7.9 due to http://bugs.python.org/issue23063
     if sys.version_info[:3] != (2, 7, 9):
-        ret = run_setup_py_check(settings['paths'])
-        if ret:
-            return ret
+        if 'setup.py' not in skip:
+            ret = run_setup_py_check(settings['paths'])
+            if ret:
+                return ret
 
     return 0
 
