@@ -6,6 +6,7 @@ Pending
 -------
 
 * New notes here
+* Fix crash when setup.cfg doesn't exist.
 
 2.2.0 (2017-09-19)
 ------------------

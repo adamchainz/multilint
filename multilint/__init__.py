@@ -104,6 +104,7 @@ def load_settings():
 def _update_settings_from_file(section, settings):
     tries = 0
     current_directory = os.path.normpath(os.getcwd())
+    config_file = None
     while current_directory and tries < MAX_CONFIG_SEARCH_DEPTH:
         potential_path = os.path.join(current_directory, 'setup.cfg')
         if os.path.exists(potential_path):
