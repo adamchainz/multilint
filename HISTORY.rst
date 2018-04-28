@@ -7,6 +7,12 @@ Pending
 
 * New notes here
 
+2.3.0 (2018-04-28)
+------------------
+
+* Fix for modernize 0.6.1+
+* Run modernize on the multilint codebase itself, so it now requires six
+
 2.2.1 (2018-03-08)
 ------------------
 
