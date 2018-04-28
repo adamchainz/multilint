@@ -8,12 +8,8 @@ import os
 import subprocess
 import sys
 
-if sys.version_info[0] == 2:
-    from cStringIO import StringIO
-    from ConfigParser import SafeConfigParser  # Py 2
-else:
-    from configparser import SafeConfigParser  # Py 3
-    from io import StringIO
+from six.moves.configparser import SafeConfigParser
+from six.moves import cStringIO as StringIO
 
 try:
     from flake8.main.cli import main as flake8_main  # flake8 3+
@@ -137,17 +133,16 @@ def sanitize(config_items):
 
 def check_settings(settings):
     if not settings['paths']:
-        print(
+        sys.stderr.writelines([
             'No paths defined in [tool:multilint] section in setup.cfg',
-            file=sys.stderr,
-        )
+        ])
         return 1
 
     all_exist = True
     for path in settings['paths']:
         if not os.path.exists(path):
             all_exist = False
-            print('Path {} does not exist'.format(path), file=sys.stderr)
+            sys.stderr.writelines(['Path {} does not exist'.format(path)])
 
     if not all_exist:
         return 1
@@ -170,8 +165,11 @@ def run_flake8(paths):
     finally:
         sys.argv = original_argv
 
-    print('flake8 failed' if exit_code else 'flake8 passed')
-    return exit_code
+    if exit_code:
+        print('flake8 failed')
+    else:
+        print('flake8 passed')
+    return int(exit_code)
 
 
 def run_modernize(paths):
@@ -183,14 +181,20 @@ def run_modernize(paths):
         orig_stdout = getattr(sys, 'stdout')
         out = StringIO()
         setattr(sys, 'stdout', out)
-        libmodernize_main(paths)
+        ret = libmodernize_main(paths)
     finally:
         sys.stdout = orig_stdout
     output = out.getvalue()
     print(output)
-    ret = len(output)
-    print('modernize failed' if ret else 'modernize passed')
-    return ret
+
+    has_patch_lines = any(
+        line.startswith(('+++', '---')) for line in output.splitlines()
+    )
+    if has_patch_lines or ret != 0:
+        print('modernize failed')
+        return max(ret, 1)
+    print('modernize passed')
+    return 0
 
 
 def run_isort(paths):
