@@ -2,8 +2,15 @@
 History
 =======
 
-Pending
--------
+Pending Release
+---------------
+
+.. Modify the below with new release notes
+
+* Nothing right now
+
+2.4.0 (2018-09-30)
+------------------
 
 * Support positional arguments for paths.
 
