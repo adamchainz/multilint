@@ -8,8 +8,8 @@ import os
 import subprocess
 import sys
 
-from six.moves.configparser import SafeConfigParser
 from six.moves import cStringIO as StringIO
+from six.moves.configparser import SafeConfigParser
 
 try:
     from flake8.main.cli import main as flake8_main  # flake8 3+
@@ -42,6 +42,13 @@ parser = argparse.ArgumentParser(
     description="Run multiple python linters easily"
 )
 parser.add_argument(
+    'paths',
+    metavar='PATH',
+    type=str,
+    nargs='*',
+    help='Path(s) that override the `paths` settings.',
+)
+parser.add_argument(
     '--skip',
     dest='skip',
     type=str,
@@ -53,32 +60,37 @@ parser.add_argument(
 
 def run(raw_args):
     settings = load_settings()
+
     args = parser.parse_args(raw_args)
     skip = args.skip or ()
+    paths = list(args.paths)
 
-    ret = check_settings(settings)
+    if not paths:
+        paths = settings['paths']
+
+    ret = check_paths(paths)
     if ret:
         return ret
 
     if 'flake8' not in skip:
-        ret = run_flake8(settings['paths'])
+        ret = run_flake8(paths)
         if ret:
             return ret
 
     if 'modernize' not in skip:
-        ret = run_modernize(settings['paths'])
+        ret = run_modernize(paths)
         if ret:
             return ret
 
     if 'isort' not in skip:
-        ret = run_isort(settings['paths'])
+        ret = run_isort(paths)
         if ret:
             return ret
 
     # Broken on 2.7.9 due to http://bugs.python.org/issue23063
     if sys.version_info[:3] != (2, 7, 9):
         if 'setup.py' not in skip:
-            ret = run_setup_py_check(settings['paths'])
+            ret = run_setup_py_check(paths)
             if ret:
                 return ret
 
@@ -131,15 +143,16 @@ def sanitize(config_items):
     return output
 
 
-def check_settings(settings):
-    if not settings['paths']:
+def check_paths(paths):
+    if not paths:
         sys.stderr.writelines([
             'No paths defined in [tool:multilint] section in setup.cfg',
+            'nor passed as arguments to the multilint command',
         ])
         return 1
 
     all_exist = True
-    for path in settings['paths']:
+    for path in paths:
         if not os.path.exists(path):
             all_exist = False
             sys.stderr.writelines(['Path {} does not exist'.format(path)])

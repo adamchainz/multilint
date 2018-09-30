@@ -5,7 +5,7 @@ History
 Pending
 -------
 
-* New notes here
+* Support positional arguments for paths.
 
 2.3.0 (2018-04-28)
 ------------------

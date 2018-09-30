@@ -56,6 +56,13 @@ You need to configure the paths that will be linted (by default, only
             tests
             setup.py
 
+You can also pass the paths as arguments to ``multilint``, which will override
+the ``settings``, like:
+
+.. code-block:: sh
+
+    multilint path/my_file.py path/folder1
+
 Usage With ``tox``
 ------------------
 
