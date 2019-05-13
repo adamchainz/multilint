@@ -7,6 +7,9 @@ Pending Release
 
 .. Modify the below with new release notes
 
+3.0.0 (2019-05-13)
+------------------
+
 * Drop Python 2 and 3.4 support, only Python 3.5+ is supported now.
 * Add support for running `Black <https://pypi.org/project/black/>`__, the
   Python code auto-formatter.
