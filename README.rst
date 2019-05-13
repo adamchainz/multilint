@@ -38,9 +38,9 @@ centralizing running all these neat tools.
 In order, it will check if these linters are installed, and if so, run them:
 
 * `Black <https://pypi.org/project/black/>`_, to autoformat code
-* `Flake8 <https://pypi.org/project/flake8/>`, to check code quality
-* `Isort <https://pypi.org/project/isort/>`, in 'diff' mode to show where imports aren't sorted
-* `Modernize <https://pypi.org/project/modernize/>`, in 'diff' mode to show where python 2/3 compatibility with
+* `Flake8 <https://pypi.org/project/flake8/>`_, to check code quality
+* `Isort <https://pypi.org/project/isort/>`_, in 'diff' mode to show where imports aren't sorted
+* `Modernize <https://pypi.org/project/modernize/>`_, in 'diff' mode to show where python 2/3 compatibility with
   ``six`` is missing
 * ``python setup.py check``, to check your ``setup.py`` is well
   configured. This will require ``docutils``, and also ``Pygments`` if your
