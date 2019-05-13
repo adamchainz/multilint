@@ -25,32 +25,30 @@ try:
 except ImportError:
     libmodernize_main = None
 
-__author__ = 'Adam Johnson'
-__email__ = 'me@adamj.eu'
-__version__ = '2.4.0'
+__author__ = "Adam Johnson"
+__email__ = "me@adamj.eu"
+__version__ = "2.4.0"
 
 
 def main():
     sys.exit(run(sys.argv[1:]))
 
 
-parser = argparse.ArgumentParser(
-    description="Run multiple python linters easily"
+parser = argparse.ArgumentParser(description="Run multiple python linters easily")
+parser.add_argument(
+    "paths",
+    metavar="PATH",
+    type=str,
+    nargs="*",
+    help="Path(s) that override the `paths` settings.",
 )
 parser.add_argument(
-    'paths',
-    metavar='PATH',
+    "--skip",
+    dest="skip",
     type=str,
-    nargs='*',
-    help='Path(s) that override the `paths` settings.',
-)
-parser.add_argument(
-    '--skip',
-    dest='skip',
-    type=str,
-    action='append',
-    help='Name(s) of linters that are installed but should be skipped.',
-    choices=['flake8', 'modernize', 'isort', 'setup.py'],
+    action="append",
+    help="Name(s) of linters that are installed but should be skipped.",
+    choices=["flake8", "modernize", "isort", "setup.py"],
 )
 
 
@@ -62,30 +60,30 @@ def run(raw_args):
     paths = list(args.paths)
 
     if not paths:
-        paths = settings['paths']
+        paths = settings["paths"]
 
     ret = check_paths(paths)
     if ret:
         return ret
 
-    if 'flake8' not in skip:
+    if "flake8" not in skip:
         ret = run_flake8(paths)
         if ret:
             return ret
 
-    if 'modernize' not in skip:
+    if "modernize" not in skip:
         ret = run_modernize(paths)
         if ret:
             return ret
 
-    if 'isort' not in skip:
+    if "isort" not in skip:
         ret = run_isort(paths)
         if ret:
             return ret
 
     # Broken on 2.7.9 due to http://bugs.python.org/issue23063
     if sys.version_info[:3] != (2, 7, 9):
-        if 'setup.py' not in skip:
+        if "setup.py" not in skip:
             ret = run_setup_py_check(paths)
             if ret:
                 return ret
@@ -94,14 +92,12 @@ def run(raw_args):
 
 
 MAX_CONFIG_SEARCH_DEPTH = 25
-default_settings = {
-    'paths': []
-}
+default_settings = {"paths": []}
 
 
 def load_settings():
     settings = default_settings.copy()
-    _update_settings_from_file('setup.cfg', settings)
+    _update_settings_from_file("setup.cfg", settings)
     return settings
 
 
@@ -110,7 +106,7 @@ def _update_settings_from_file(section, settings):
     current_directory = os.path.normpath(os.getcwd())
     config_file = None
     while current_directory and tries < MAX_CONFIG_SEARCH_DEPTH:
-        potential_path = os.path.join(current_directory, 'setup.cfg')
+        potential_path = os.path.join(current_directory, "setup.cfg")
         if os.path.exists(potential_path):
             config_file = potential_path
             break
@@ -122,11 +118,11 @@ def _update_settings_from_file(section, settings):
         tries += 1
 
     if config_file and os.path.exists(config_file):
-        with open(config_file, 'rU') as fp:
+        with open(config_file, "rU") as fp:
             config = SafeConfigParser()
             config.readfp(fp)
-        if config.has_section('tool:multilint'):
-            settings.update(sanitize(config.items('tool:multilint')))
+        if config.has_section("tool:multilint"):
+            settings.update(sanitize(config.items("tool:multilint")))
 
 
 def sanitize(config_items):
@@ -134,24 +130,26 @@ def sanitize(config_items):
     for key, value in dict(config_items).items():
         if key in default_settings:
             if isinstance(default_settings[key], list):
-                value = [v.strip() for v in value.split('\n') if v.strip()]
+                value = [v.strip() for v in value.split("\n") if v.strip()]
             output[key] = value
     return output
 
 
 def check_paths(paths):
     if not paths:
-        sys.stderr.writelines([
-            'No paths defined in [tool:multilint] section in setup.cfg',
-            'nor passed as arguments to the multilint command',
-        ])
+        sys.stderr.writelines(
+            [
+                "No paths defined in [tool:multilint] section in setup.cfg",
+                "nor passed as arguments to the multilint command",
+            ]
+        )
         return 1
 
     all_exist = True
     for path in paths:
         if not os.path.exists(path):
             all_exist = False
-            sys.stderr.writelines(['Path {} does not exist'.format(path)])
+            sys.stderr.writelines(["Path {} does not exist".format(path)])
 
     if not all_exist:
         return 1
@@ -163,11 +161,11 @@ def run_flake8(paths):
     if flake8_main is None:
         return 0
 
-    print('Running flake8 code linting')
-    exit_code = 0   # flake8 < 3 path - 3+ always raises SystemExit
+    print("Running flake8 code linting")
+    exit_code = 0  # flake8 < 3 path - 3+ always raises SystemExit
     try:
         original_argv = sys.argv
-        sys.argv = ['flake8'] + paths
+        sys.argv = ["flake8"] + paths
         flake8_main()
     except SystemExit as e:
         exit_code = e.code
@@ -175,9 +173,9 @@ def run_flake8(paths):
         sys.argv = original_argv
 
     if exit_code:
-        print('flake8 failed')
+        print("flake8 failed")
     else:
-        print('flake8 passed')
+        print("flake8 passed")
     return int(exit_code)
 
 
@@ -185,11 +183,11 @@ def run_modernize(paths):
     if libmodernize_main is None:
         return 0
 
-    print('Running modernize checks')
+    print("Running modernize checks")
     try:
-        orig_stdout = getattr(sys, 'stdout')
+        orig_stdout = getattr(sys, "stdout")
         out = io.StringIO()
-        setattr(sys, 'stdout', out)
+        setattr(sys, "stdout", out)
         ret = libmodernize_main(paths)
     finally:
         sys.stdout = orig_stdout
@@ -197,12 +195,12 @@ def run_modernize(paths):
     print(output)
 
     has_patch_lines = any(
-        line.startswith(('+++', '---')) for line in output.splitlines()
+        line.startswith(("+++", "---")) for line in output.splitlines()
     )
     if has_patch_lines or ret != 0:
-        print('modernize failed')
+        print("modernize failed")
         return max(ret, 1)
-    print('modernize passed')
+    print("modernize passed")
     return 0
 
 
@@ -210,9 +208,9 @@ def run_isort(paths):
     if isort_main is None:
         return 0
 
-    print('Running isort check')
+    print("Running isort check")
     original_argv = sys.argv
-    sys.argv = ['isort', '--recursive', '--check-only', '--diff'] + paths
+    sys.argv = ["isort", "--recursive", "--check-only", "--diff"] + paths
     try:
         isort_main()
         return 0
@@ -223,10 +221,9 @@ def run_isort(paths):
 
 
 def run_setup_py_check(paths):
-    if 'setup.py' not in paths:
+    if "setup.py" not in paths:
         return 0
-    print('Running setup.py check')
-    return subprocess.call([
-        'python', 'setup.py', 'check',
-        '-s', '--restructuredtext', '--metadata'
-    ])
+    print("Running setup.py check")
+    return subprocess.call(
+        ["python", "setup.py", "check", "-s", "--restructuredtext", "--metadata"]
+    )
