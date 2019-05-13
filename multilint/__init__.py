@@ -8,6 +8,14 @@ import sys
 from configparser import SafeConfigParser
 
 try:
+    # Skipping patched_main since we shouldn't need the two patches it applies.
+    # At time of writing, these are multiprocessing.freeze_support() and
+    # forcing click to accept non-ASCII file paths
+    from black import main as black_main
+except ImportError:
+    black_main = None
+
+try:
     from flake8.main.cli import main as flake8_main  # flake8 3+
 except ImportError:
     try:
@@ -65,6 +73,11 @@ def run(raw_args):
     ret = check_paths(paths)
     if ret:
         return ret
+
+    if "black" not in skip:
+        ret = run_black(paths)
+        if ret:
+            return ret
 
     if "flake8" not in skip:
         ret = run_flake8(paths)
@@ -155,6 +168,24 @@ def check_paths(paths):
         return 1
 
     return 0
+
+
+def run_black(paths):
+    if black_main is None:
+        return 0
+
+    print("Running black check")
+    exit_code = 0
+    try:
+        black_main(["--check"] + paths)
+    except SystemExit as exc:
+        exit_code = exc.code
+
+    if exit_code:
+        print("black failed")
+    else:
+        print("black passed")
+    return exit_code
 
 
 def run_flake8(paths):

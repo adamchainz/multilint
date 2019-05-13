@@ -4,12 +4,15 @@
 #
 #    pip-compile
 #
+appdirs==1.4.3            # via black
 atomicwrites==1.3.0       # via pytest
-attrs==19.1.0             # via pytest
+attrs==19.1.0             # via black, pytest
+black==19.3b0
+click==7.0                # via black
 docutils==0.14
 entrypoints==0.3          # via flake8
 flake8==3.7.7
-isort==4.3.18
+isort==4.3.19
 mccabe==0.6.1             # via flake8
 modernize==0.7
 more-itertools==7.0.0     # via pytest
@@ -18,5 +21,7 @@ py==1.8.0                 # via pytest
 pycodestyle==2.5.0        # via flake8
 pyflakes==2.1.1           # via flake8
 pygments==2.4.0
-pytest==4.4.2
+pytest==4.5.0
 six==1.12.0               # via pytest
+toml==0.10.0              # via black
+wcwidth==0.1.7            # via pytest
