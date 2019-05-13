@@ -16,12 +16,9 @@ except ImportError:
     black_main = None
 
 try:
-    from flake8.main.cli import main as flake8_main  # flake8 3+
+    from flake8.main.cli import main as flake8_main
 except ImportError:
-    try:
-        from flake8.main import main as flake8_main  # flake8 <3
-    except ImportError:
-        flake8_main = None
+    flake8_main = None
 
 try:
     from isort.main import main as isort_main
@@ -193,14 +190,12 @@ def run_flake8(paths):
         return 0
 
     print("Running flake8 code linting")
-    exit_code = 0  # flake8 < 3 path - 3+ always raises SystemExit
     try:
         original_argv = sys.argv
         sys.argv = ["flake8"] + paths
         flake8_main()
-    except SystemExit as e:
+    except SystemExit as e:  # Always raised
         exit_code = e.code
-    finally:
         sys.argv = original_argv
 
     if exit_code:

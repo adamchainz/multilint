@@ -10,6 +10,7 @@ Pending Release
 * Drop Python 2 support, only Python 3.4+ is supported now.
 * Add support for running `Black <https://pypi.org/project/black/>`__, the
   Python code auto-formatter.
+* Drop support for Flake8 < 3.0.0.
 
 2.4.0 (2018-09-30)
 ------------------
