@@ -1,15 +1,11 @@
-# -*- encoding:utf-8 -*-
-from __future__ import (
-    absolute_import, division, print_function, unicode_literals
-)
+from __future__ import absolute_import, print_function
 
 import argparse
+import io
 import os
 import subprocess
 import sys
-
-from six.moves import cStringIO as StringIO
-from six.moves.configparser import SafeConfigParser
+from configparser import SafeConfigParser
 
 try:
     from flake8.main.cli import main as flake8_main  # flake8 3+
@@ -192,7 +188,7 @@ def run_modernize(paths):
     print('Running modernize checks')
     try:
         orig_stdout = getattr(sys, 'stdout')
-        out = StringIO()
+        out = io.StringIO()
         setattr(sys, 'stdout', out)
         ret = libmodernize_main(paths)
     finally:

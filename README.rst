@@ -25,6 +25,8 @@ Run with:
 
     multilint
 
+Python 3.4+ supported.
+
 How It Works
 ------------
 
