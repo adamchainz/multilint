@@ -5,3 +5,4 @@ isort
 modernize
 pytest
 Pygments
+twine
