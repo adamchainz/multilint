@@ -8,6 +8,9 @@ multilint
 .. image:: https://img.shields.io/travis/adamchainz/multilint.svg
         :target: https://travis-ci.org/adamchainz/multilint
 
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/python/black
+
 Run multiple python linters easily.
 
 Installation and Usage

@@ -211,9 +211,9 @@ def run_modernize(paths):
 
     print("Running modernize checks")
     try:
-        orig_stdout = getattr(sys, "stdout")
+        orig_stdout = sys.stdout
         out = io.StringIO()
-        setattr(sys, "stdout", out)
+        sys.stdout = out
         ret = libmodernize_main(paths)
     finally:
         sys.stdout = orig_stdout
