@@ -3,7 +3,6 @@ from __future__ import absolute_import, print_function
 import argparse
 import io
 import os
-import subprocess
 import sys
 from configparser import SafeConfigParser
 
@@ -90,13 +89,6 @@ def run(raw_args):
         ret = run_isort(paths)
         if ret:
             return ret
-
-    # Broken on 2.7.9 due to http://bugs.python.org/issue23063
-    if sys.version_info[:3] != (2, 7, 9):
-        if "setup.py" not in skip:
-            ret = run_setup_py_check(paths)
-            if ret:
-                return ret
 
     return 0
 
@@ -244,12 +236,3 @@ def run_isort(paths):
         return e.code
     finally:
         sys.argv = original_argv
-
-
-def run_setup_py_check(paths):
-    if "setup.py" not in paths:
-        return 0
-    print("Running setup.py check")
-    return subprocess.call(
-        ["python", "setup.py", "check", "-s", "--restructuredtext", "--metadata"]
-    )

@@ -45,9 +45,6 @@ In order, it will check if these linters are installed, and if so, run them:
 * `Isort <https://pypi.org/project/isort/>`_, in 'diff' mode to show where imports aren't sorted
 * `Modernize <https://pypi.org/project/modernize/>`_, in 'diff' mode to show where python 2/3 compatibility with
   ``six`` is missing
-* ``python setup.py check``, to check your ``setup.py`` is well
-  configured. This will require ``docutils``, and also ``Pygments`` if your
-  ``long_description`` uses any code highlighting.
 
 If any of them fail, ``multilint`` stops and dies with a non-zero exit code.
 Otherwise it succeeds!
@@ -68,6 +65,11 @@ the ``settings``, like:
 .. code-block:: sh
 
     multilint path/my_file.py path/folder1
+
+**Note:** previously ``multilint`` supported running ``setup.py check`` if you
+passed a ``setup.py`` file. This was removed as the command is deprecated. You
+should instead use ``twine check`` as per the `python packaging documentation
+<https://packaging.python.org/guides/making-a-pypi-friendly-readme#validating-restructuredtext-markup>`__.
 
 Usage With ``tox``
 ------------------

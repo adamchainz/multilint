@@ -7,6 +7,25 @@ Pending Release
 
 .. Modify the below with new release notes
 
+* Drop ``setup.py check`` support since ``twine check`` is the new, more
+  complete, recommended way of checking distributable file correctness, as per
+  the warning:
+
+  .. code-block:: sh
+
+      warning: Check: This command has been deprecated. Use `twine check`
+      instead: https://packaging.python.org/guides/making-a-pypi-friendly-readme#validating-restructuredtext-markup
+
+
+  ``multilint`` can't run ``twine check`` since it needs running on your
+  ``dist`` files instead of the ``setup.py`` file.
+
+  You can integrate it on a typical ``tox`` setup with an extra command
+  ``tox dist/*``. For more information see the `twine check
+  documentation <https://twine.readthedocs.io/en/latest/#twine-check>`__ and
+  the `packaging documentation
+  <https://packaging.python.org/guides/making-a-pypi-friendly-readme#validating-restructuredtext-markup>`__.
+
 3.0.0 (2019-05-13)
 ------------------
 
