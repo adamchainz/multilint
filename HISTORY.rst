@@ -7,6 +7,9 @@ Pending Release
 
 .. Modify the below with new release notes
 
+4.0.0 (2019-08-11)
+------------------
+
 * Drop ``setup.py check`` support since ``twine check`` is the new, more
   complete, recommended way of checking distributable file correctness, as per
   the warning:
