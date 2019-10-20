@@ -29,10 +29,6 @@ try:
 except ImportError:
     libmodernize_main = None
 
-__author__ = "Adam Johnson"
-__email__ = "me@adamj.eu"
-__version__ = "4.0.0"
-
 
 def main():
     sys.exit(run(sys.argv[1:]))
