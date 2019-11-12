@@ -7,6 +7,7 @@ Pending Release
 
 .. Modify the below with new release notes
 
+* Update Python support to 3.5-3.8.
 * Converted setuptools metadata to configuration file. This meant removing the
   ``__version__`` attribute from the package. If you want to inspect the
   installed version, use

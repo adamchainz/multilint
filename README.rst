@@ -28,7 +28,7 @@ Run with:
 
     multilint
 
-Python 3.5-3.7 supported.
+Python 3.5-3.8  supported.
 
 How It Works
 ------------
@@ -75,21 +75,21 @@ Usage With ``tox``
 ------------------
 
 I normally run my tests with ``tox``. An example ``tox.ini`` to use
-``multilint`` to run your tests on Python 3.5-3.7 and do your linting on Python
-3.7 would look like:
+``multilint`` to run your tests on Python 3.5-3.8 and do your linting on Python
+3.8 would look like:
 
 .. code-block:: ini
 
     [tox]
     envlist =
-        py{35,36,37},
-        py37-codestyle
+        py{35,36,37,38},
+        py38-codestyle
 
     [testenv]
     deps = -rrequirements.txt
     commands = pytest
 
-    [testenv:py37-codestyle]
+    [testenv:py38-codestyle]
     commands = multilint
 
 Then just put ``multilint``, plus the linters you want it to run (e.g.
