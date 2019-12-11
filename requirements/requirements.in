@@ -6,4 +6,5 @@ isort
 modernize
 pytest
 Pygments
+secretstorage # required for twine on linux
 twine
