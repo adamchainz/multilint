@@ -1,10 +1,11 @@
+Pygments
 black ; python_version == '3.8.*'
+check-manifest
 docutils
 flake8
 flake8-bugbear
 isort
 modernize
 pytest
-Pygments
 secretstorage # required for twine on linux
 twine
