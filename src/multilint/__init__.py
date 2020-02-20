@@ -116,7 +116,7 @@ def _update_settings_from_file(section, settings):
         tries += 1
 
     if config_file and os.path.exists(config_file):
-        with open(config_file, "rU") as fp:
+        with open(config_file, "r") as fp:
             config = SafeConfigParser()
             config.readfp(fp)
         if config.has_section("tool:multilint"):
