@@ -20,7 +20,7 @@ Install with **pip**:
 
 .. code-block:: sh
 
-    pip install multilint
+    python -m pip install multilint
 
 Run with:
 
