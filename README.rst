@@ -6,7 +6,7 @@ multilint
    :target: https://github.com/adamchainz/multilint/actions?workflow=CI
 
 .. image:: https://img.shields.io/pypi/v/multilint.svg
-   :target: https://pypi.python.org/pypi/multilint
+   :target: https://pypi.org/project/multilint/
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/python/black
