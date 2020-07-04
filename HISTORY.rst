@@ -2,6 +2,9 @@
 History
 =======
 
+5.0.0 (2020-07-04)
+------------------
+
 * Require ``isort`` 5.0.0+ and stop passing it the ``--recursive`` argument,
   which is now a default.
 
