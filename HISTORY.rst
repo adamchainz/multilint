@@ -2,10 +2,11 @@
 History
 =======
 
+* Require ``isort`` 5.0.0+ and stop passing it the ``--recursive`` argument,
+  which is now a default.
+
 4.1.0 (2019-11-15)
 ------------------
-
-.. Modify the below with new release notes
 
 * Support Python 3.8.
 * Converted setuptools metadata to configuration file. This meant removing the

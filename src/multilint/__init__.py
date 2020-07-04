@@ -224,7 +224,7 @@ def run_isort(paths):
 
     print("Running isort check")
     original_argv = sys.argv
-    sys.argv = ["isort", "--recursive", "--check-only", "--diff"] + paths
+    sys.argv = ["isort", "--check-only", "--diff"] + paths
     try:
         isort_main()
         return 0
