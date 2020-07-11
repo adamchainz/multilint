@@ -48,7 +48,7 @@ parser.add_argument(
     type=str,
     action="append",
     help="Name(s) of linters that are installed but should be skipped.",
-    choices=["flake8", "modernize", "isort", "setup.py"],
+    choices=["flake8", "modernize", "isort"],
 )
 
 
