@@ -95,9 +95,9 @@ idna==2.10 \
     --hash=sha256:b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6 \
     --hash=sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0 \
     # via requests
-isort==5.0.1 \
-    --hash=sha256:cc85800d06e41aae02b9d7d5d074104fa2060e406c76af2283ef6b3b0b1b574d \
-    --hash=sha256:eae6ecb60a336da7abd9695e43e603230348b317dc516a73656623e604b95732 \
+isort==5.1.2 \
+    --hash=sha256:408e4d75d84f51b64d0824894afee44469eba34a4caee621dc53799f80d71ccc \
+    --hash=sha256:64022dea6a06badfa09b300b4dfe8ba968114a737919e8ed50aea1c288f078aa \
     # via -r requirements.in
 jeepney==0.4.3 \
     --hash=sha256:3479b861cc2b6407de5188695fa1a8d57e5072d7059322469b62628869b8e36e \
@@ -191,9 +191,9 @@ toml==0.10.1 \
     --hash=sha256:926b612be1e5ce0634a2ca03470f95169cf16f939018233a670519cb4ac58b0f \
     --hash=sha256:bda89d5935c2eac546d648028b9901107a595863cb36bae0c73ac804a9b4ce88 \
     # via check-manifest, pep517
-tqdm==4.47.0 \
-    --hash=sha256:63ef7a6d3eb39f80d6b36e4867566b3d8e5f1fe3d6cb50c5e9ede2b3198ba7b7 \
-    --hash=sha256:7810e627bcf9d983a99d9ff8a0c09674400fd2927eddabeadf153c14a2ec8656 \
+tqdm==4.48.0 \
+    --hash=sha256:6baa75a88582b1db6d34ce4690da5501d2a1cb65c34664840a456b2c9f794d29 \
+    --hash=sha256:fcb7cb5b729b60a27f300b15c1ffd4744f080fb483b88f31dc8654b082cc8ea5 \
     # via twine
 twine==3.2.0 \
     --hash=sha256:34352fd52ec3b9d29837e6072d5a2a7c6fe4290e97bba46bb8d478b5c598f7ab \
