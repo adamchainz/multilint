@@ -2,6 +2,9 @@
 History
 =======
 
+5.0.1 (2020-07-22)
+------------------
+
 * Stop maintainence. I've moved my projects' linting to use
   `pre-commit <https://pre-commit.com/>`__.
 
